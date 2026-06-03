@@ -1,0 +1,1 @@
+<iframe title="Global Income Distribution Dashboard_Infosys" width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiODExYTdmYjEtYTU0OS00MDJhLTk0Y2EtODA4OTEwY2RmYzFmIiwidCI6ImUxNGU3M2ViLTUyNTEtNDM4OC04ZDY3LThmOWYyZTJkNWE0NiIsImMiOjEwfQ%3D%3D&pageName=fc57fd5d4d7fe021e329" frameborder="0" allowFullScreen="true"></iframe>

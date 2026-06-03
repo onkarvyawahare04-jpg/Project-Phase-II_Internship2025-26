@@ -1,0 +1,6 @@
+Total Countries Analyzed: 20
+Data Timespan: 2001 to 2024
+Average Global Gini Index: 38.01
+Highest Inequality (Gini): South Africa (73.0)
+Average Unemployment Rate: 7.97%
+Global Middle Class Share: 48.1%

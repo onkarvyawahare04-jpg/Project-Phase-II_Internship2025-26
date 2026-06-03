@@ -1,0 +1,357 @@
+{% extends "base.html" %}
+{% block title %}Home - GIDA: Global Income Distribution Analytics{% endblock %}
+
+{% block content %}
+{% if current_user.is_authenticated %}
+<!-- ===== AUTHENTICATED USER HOME CONTENT ===== -->
+<div class="d-flex flex-column gap-5 py-5" style="min-height: 80vh;">
+
+    <!-- 1st Section: Hero Box -->
+    <section class="container" data-aos="fade-up">
+        <div class="glass-card p-5 text-center position-relative overflow-hidden"
+            style="border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.3); border-top: 4px solid var(--accent-gold);">
+            <div class="position-absolute top-50 start-50 translate-middle w-100 h-100 rounded-circle"
+                style="background: radial-gradient(circle, rgba(245, 158, 11, 0.05) 0%, transparent 70%); z-index: 0;">
+            </div>
+            <div class="position-relative z-1">
+                <h1 class="display-2 fw-bold mb-2" style="letter-spacing: -2px;">
+                    <span
+                        style="background: var(--gradient-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">GIDA</span>
+                </h1>
+                <h3 class="fw-light mb-4 text-white-50">Global Income Distribution Analytics</h3>
+                <p class="lead mb-5 mx-auto text-light opacity-75" style="max-width: 800px; line-height: 1.8;">
+                    Welcome to GIDA. This platform is dedicated to visualizing and analyzing the profound economic
+                    disparities across the globe. By exploring comprehensive datasets on GDP, Gini Index, income shares,
+                    and unemployment, you can uncover the deep-rooted structural inequalities that shape our world
+                    today.
+                </p>
+                <div class="d-flex gap-4 justify-content-center flex-wrap">
+                    <a href="{{ url_for('dashboard') }}" class="btn btn-gold btn-lg px-5 py-3 shadow">
+                        <i class="bi bi-bar-chart-fill me-2"></i>View Dashboard
+                    </a>
+                    <a href="{{ url_for('static', filename='Global Income Distribution Dataset.xlsx') }}" download
+                        class="btn btn-outline-glass btn-lg px-5 py-3">
+                        <i class="bi bi-cloud-arrow-down-fill me-2"></i>Download Dataset
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2nd Section: Project Overview -->
+    <section class="container" data-aos="fade-up">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-6">
+                <div class="d-flex align-items-center mb-3">
+                    <i class="bi bi-info-circle-fill text-blue display-6 me-3"></i>
+                    <h2 class="fw-bold mb-0">Project Overview</h2>
+                </div>
+                <p class="text-secondary" style="line-height: 1.8; font-size: 1.1rem;">
+                    The Global Income Distribution Analytics (GIDA) project is a comprehensive data analysis platform
+                    designed to uncover actionable insights into global economic disparities. Through the collection and
+                    processing of international datasets, this project provides an interactive lens through which
+                    researchers and policymakers can observe the nuanced interplay between wealth generation,
+                    inequality, and labor market resilience. Our mission is to transform raw statistical records into
+                    accessible, interactive narratives that foster a deeper understanding of macro-economic structures
+                    worldwide.
+                </p>
+            </div>
+            <div class="col-lg-6">
+                <div class="row g-4 text-center">
+                    <div class="col-6">
+                        <div class="glass-card p-4 h-100" style="border-left: 3px solid var(--accent-gold);">
+                            <div class="text-gold display-5 fw-bold mb-2">20</div>
+                            <div class="text-secondary small text-uppercase tracking-widest">Countries Analyzed</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="glass-card p-4 h-100" style="border-left: 3px solid var(--accent-blue);">
+                            <div class="text-blue display-5 fw-bold mb-2">24</div>
+                            <div class="text-secondary small text-uppercase tracking-widest">Years of Data</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="glass-card p-4 h-100" style="border-left: 3px solid var(--accent-emerald);">
+                            <div class="text-emerald display-5 fw-bold mb-2">38.01</div>
+                            <div class="text-secondary small text-uppercase tracking-widest">Avg Gini Index</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="glass-card p-4 h-100" style="border-left: 3px solid var(--accent-rose);">
+                            <div class="text-rose display-5 fw-bold mb-2">100%</div>
+                            <div class="text-secondary small text-uppercase tracking-widest">Analytical</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3rd Section: Detailed Inequality Analysis -->
+    <section class="container" data-aos="fade-up">
+        <h2 class="fw-bold mb-4 text-center">Detailed Inequality Analysis</h2>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+                <div class="glass-card p-4 h-100 position-relative border-0" style="background: rgba(15, 23, 42, 0.4);">
+                    <div class="position-absolute top-0 start-0 w-100"
+                        style="height: 4px; background: var(--accent-gold); border-top-left-radius: inherit; border-top-right-radius: inherit;">
+                    </div>
+                    <h5 class="text-gold mb-3 mt-2"><i class="bi bi-cash-coin me-2"></i>GDP Per Capita</h5>
+                    <p class="text-secondary small" style="line-height: 1.7;">
+                        <strong>Definition:</strong> Gross Domestic Product divided by the population. It represents the
+                        average economic output per person.<br><br>
+                        <strong>Unit:</strong> US Dollars ($)<br><br>
+                        <strong>Significance:</strong> Acts as the baseline indicator of national wealth and standard of
+                        living, though it does not account for how wealth is distributed among citizens.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="glass-card p-4 h-100 position-relative border-0" style="background: rgba(15, 23, 42, 0.4);">
+                    <div class="position-absolute top-0 start-0 w-100"
+                        style="height: 4px; background: var(--accent-blue); border-top-left-radius: inherit; border-top-right-radius: inherit;">
+                    </div>
+                    <h5 class="text-blue mb-3 mt-2"><i class="bi bi-pie-chart-fill me-2"></i>Gini Index</h5>
+                    <p class="text-secondary small" style="line-height: 1.7;">
+                        <strong>Definition:</strong> A statistical measure of economic inequality in a population. It
+                        quantifies the disparity between the richest and poorest.<br><br>
+                        <strong>Unit:</strong> Index Score (0 to 100)<br><br>
+                        <strong>Significance:</strong> 0 represents perfect equality, while 100 represents maximal
+                        inequality. It specifically answers the true question of structural wealth distribution.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="glass-card p-4 h-100 position-relative border-0" style="background: rgba(15, 23, 42, 0.4);">
+                    <div class="position-absolute top-0 start-0 w-100"
+                        style="height: 4px; background: var(--accent-emerald); border-top-left-radius: inherit; border-top-right-radius: inherit;">
+                    </div>
+                    <h5 class="text-emerald mb-3 mt-2"><i class="bi bi-layers-fill me-2"></i>Income Share</h5>
+                    <p class="text-secondary small" style="line-height: 1.7;">
+                        <strong>Definition:</strong> The percentage of total national income held by specific segments
+                        of the population.<br><br>
+                        <strong>Unit:</strong> Percentage (%)<br><br>
+                        <strong>Brackets Overview:</strong><br>
+                        - <strong class="text-danger">Lowest 20%:</strong> The poorest quintile.<br>
+                        - <strong class="text-warning">Second 20%:</strong> Lower-middle class.<br>
+                        - <strong class="text-info">Third 20%:</strong> The middle class.<br>
+                        - <strong class="text-primary">Fourth 20%:</strong> Upper-middle class.<br>
+                        - <strong class="text-success">Highest 20%:</strong> The wealthiest quintile.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="glass-card p-4 h-100 position-relative border-0" style="background: rgba(15, 23, 42, 0.4);">
+                    <div class="position-absolute top-0 start-0 w-100"
+                        style="height: 4px; background: var(--accent-rose); border-top-left-radius: inherit; border-top-right-radius: inherit;">
+                    </div>
+                    <h5 class="text-rose mb-3 mt-2"><i class="bi bi-person-slash me-2"></i>Unemployment Rate</h5>
+                    <p class="text-secondary small" style="line-height: 1.7;">
+                        <strong>Definition:</strong> The percentage of the labor force that is jobless and actively
+                        looking for work.<br><br>
+                        <strong>Unit:</strong> Percentage (%)<br><br>
+                        <strong>Significance:</strong> Acts as a multiplier to inequality. Chronic gaps in labor market
+                        integration prevent broad social mobility even in increasingly wealthy nations.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4th Section: Global Insights -->
+    <section class="container pb-5" data-aos="fade-up">
+        <div class="glass-card p-5 border-0"
+            style="background: rgba(15, 23, 42, 0.6); box-shadow: 0 10px 40px rgba(0,0,0,0.2);">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-5">
+                    <h2 class="fw-bold mb-3">Global Insights</h2>
+                    <p class="text-secondary mb-0" style="line-height: 1.8; font-size: 1.05rem;">
+                        These insights are derived directly from the
+                        <code>Global Income Distribution Dataset.xlsx</code>, spanning 2001 to 2024 across 20 distinct
+                        nations.
+                    </p>
+                </div>
+                <div class="col-lg-7">
+                    <ul class="list-unstyled mb-0 d-flex flex-column gap-4">
+                        <li class="d-flex align-items-start glass-card p-3 border-secondary border-opacity-25"
+                            style="background: rgba(0,0,0,0.2);">
+                            <div class="me-3 mt-1"><i class="bi bi-check-circle-fill text-gold fs-5"></i></div>
+                            <div>
+                                <strong class="text-white d-block mb-1">Polarization of Wealth</strong>
+                                <span class="text-light opacity-75 small" style="line-height: 1.6;">The data reveals a
+                                    squeeze on the middle and lower classes across the surveyed nations, highlighting a
+                                    distinct shift of wealth towards the highest income quintile.</span>
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-start glass-card p-3 border-secondary border-opacity-25"
+                            style="background: rgba(0,0,0,0.2);">
+                            <div class="me-3 mt-1"><i class="bi bi-check-circle-fill text-gold fs-5"></i></div>
+                            <div>
+                                <strong class="text-white d-block mb-1">Consistent High Inequality</strong>
+                                <span class="text-light opacity-75 small" style="line-height: 1.6;">South Africa
+                                    consistently displays the highest inequality, with a peak Gini score of 73.0 within
+                                    the dataset, demonstrating severe structural disparity.</span>
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-start glass-card p-3 border-secondary border-opacity-25"
+                            style="background: rgba(0,0,0,0.2);">
+                            <div class="me-3 mt-1"><i class="bi bi-check-circle-fill text-gold fs-5"></i></div>
+                            <div>
+                                <strong class="text-white d-block mb-1">Global Labor Disconnect</strong>
+                                <span class="text-light opacity-75 small" style="line-height: 1.6;">Despite economic
+                                    growth (rising GDP), an average unemployment rate of ~7.97% across the dataset
+                                    indicates the labor market's failure to fully integrate populations, acting as a
+                                    direct driver of inequality.</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+</div>
+
+{% else %}
+<!-- ===== MINIMALIST GUEST LOGIN PORTAL ===== -->
+<div class="minimal-wrapper d-flex flex-column align-items-center justify-content-center" style="min-height: 80vh;">
+    <!-- Brand Branding -->
+    <div class="text-center mb-5" data-aos="fade-down">
+        <h1 class="display-2 fw-bold mb-1" style="letter-spacing: -4px;">
+            <span
+                style="background: var(--gradient-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">GIDA</span>
+        </h1>
+        <p class="text-secondary tracking-widest text-uppercase small">Global Income Distribution Analytics</p>
+    </div>
+
+    <!-- Tabbed Login Card -->
+    <div class="login-gateway-card glass-card p-0 overflow-hidden" data-aos="zoom-in"
+        style="width: 100%; max-width: 450px; border-radius: 30px;">
+        <!-- Tab Headers -->
+        <div class="d-flex border-bottom" style="border-color: rgba(255,255,255,0.05) !important;">
+            <button class="flex-grow-1 py-3 border-0 transition-all fw-bold small text-uppercase active-tab"
+                id="btnUserTab" onclick="switchLogin('user')">
+                <i class="bi bi-person-fill me-2"></i>User Login
+            </button>
+            <button class="flex-grow-1 py-3 border-0 transition-all fw-bold small text-uppercase inactive-tab"
+                id="btnAdminTab" onclick="switchLogin('admin')" style="background: rgba(0,0,0,0.2);">
+                <i class="bi bi-shield-lock-fill me-1"></i>Admin Login
+            </button>
+        </div>
+
+        <div class="p-5">
+            <!-- User Form -->
+            <div id="userLoginForm" class="login-form-container">
+                <div class="text-center mb-4">
+                    <div class="portal-badge mb-2">Consumer Access</div>
+                    <p class="text-secondary x-small">Sign in to explore interactive wealth datasets</p>
+                </div>
+                <form action="{{ url_for('login') }}" method="POST">
+                    <input type="hidden" name="login_type" value="user">
+                    <div class="mb-3">
+                        <label class="form-label-custom small">Email Address</label>
+                        <input type="email" name="email" class="form-control form-control-glass py-2"
+                            placeholder="john@example.com" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label-custom small">Password</label>
+                        <div class="input-group">
+                            <input type="password" name="password" id="passUserHome"
+                                class="form-control form-control-glass py-2" placeholder="••••••••" required
+                                style="border-right: none;">
+                            <button type="button" class="btn form-control-glass"
+                                onclick="togglePassword('passUserHome', 'eyeUserHome')"
+                                style="border-left: none; border-top-left-radius: 0; border-bottom-left-radius: 0;">
+                                <i class="bi bi-eye" id="eyeUserHome"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-gold btn-lg w-100 py-3 shadow mb-3">
+                        <i class="bi bi-box-arrow-in-right me-2"></i>Sign In as User
+                    </button>
+                    <div class="text-center">
+                        <span class="text-muted extra-small">New to GIDA?</span>
+                        <a href="{{ url_for('register') }}"
+                            class="text-warning extra-small fw-bold text-decoration-none ms-1">Create Account</a>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Admin Form -->
+            <div id="adminLoginForm" class="login-form-container d-none">
+                <div class="text-center mb-4">
+                    <div class="portal-badge admin mb-2">Restricted Access</div>
+                    <p class="text-secondary x-small">Secure gateway for platform administrators</p>
+                </div>
+                <form action="{{ url_for('login') }}" method="POST">
+                    <input type="hidden" name="login_type" value="admin">
+                    <div class="mb-3">
+                        <label class="form-label-custom small">Admin Email</label>
+                        <input type="email" name="email" class="form-control form-control-glass py-2"
+                            placeholder="admin@gida.com" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label-custom small">Security Credential</label>
+                        <div class="input-group">
+                            <input type="password" name="password" id="passAdminHome"
+                                class="form-control form-control-glass py-2" placeholder="••••••••" required
+                                style="border-right: none;">
+                            <button type="button" class="btn form-control-glass"
+                                onclick="togglePassword('passAdminHome', 'eyeAdminHome')"
+                                style="border-left: none; border-top-left-radius: 0; border-bottom-left-radius: 0;">
+                                <i class="bi bi-eye" id="eyeAdminHome"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button type="submit"
+                        class="btn btn-outline-glass btn-lg w-100 py-3 mb-3 border-warning text-warning">
+                        <i class="bi bi-key-fill me-2"></i>Authorize Admin
+                    </button>
+                    <div class="text-center">
+                        <p class="text-muted extra-small mb-0 opacity-50">System governance only. Unauthorized access is
+                            prohibited.</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</style>
+
+<script>
+    function togglePassword(inputId, iconId) {
+        const input = document.getElementById(inputId);
+        const icon = document.getElementById(iconId);
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.className = 'bi bi-eye-slash';
+        } else {
+            input.type = 'password';
+            icon.className = 'bi bi-eye';
+        }
+    }
+    function switchLogin(type) {
+        const userBtn = document.getElementById('btnUserTab');
+        const adminBtn = document.getElementById('btnAdminTab');
+        const userForm = document.getElementById('userLoginForm');
+        const adminForm = document.getElementById('adminLoginForm');
+
+        if (type === 'user') {
+            userBtn.classList.add('active-tab');
+            userBtn.classList.remove('inactive-tab');
+            adminBtn.classList.add('inactive-tab');
+            adminBtn.classList.remove('active-tab');
+            userForm.classList.remove('d-none');
+            adminForm.classList.add('d-none');
+        } else {
+            adminBtn.classList.add('active-tab');
+            adminBtn.classList.remove('inactive-tab');
+            userBtn.classList.add('inactive-tab');
+            userBtn.classList.remove('active-tab');
+            adminForm.classList.remove('d-none');
+            userForm.classList.add('d-none');
+        }
+    }
+</script>
+{% endif %}
+{% endblock %}

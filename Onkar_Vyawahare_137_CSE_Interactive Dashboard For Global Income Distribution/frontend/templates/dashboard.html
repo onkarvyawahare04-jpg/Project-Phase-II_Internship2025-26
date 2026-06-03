@@ -1,0 +1,458 @@
+{% extends "base.html" %}
+{% block title %}Global Income Distribution Dashboard{% endblock %}
+
+{% block head %}
+<!-- Include Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<!-- Include Leaflet.js for Interactive Map -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<!-- Include custom dashboard styles -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard_native.css') }}">
+{% endblock %}
+
+
+{% block content %}
+<div class="container-fluid px-4 py-3" style="background-color: var(--dash-bg); min-height: 100vh;">
+
+
+    <!-- 1. How to Use GIDA Dashboard Section -->
+    <div class="row mb-5" data-aos="fade-down">
+        <div class="col-12">
+            <div class="glass-card p-4 h-100 overflow-hidden" style="border-left: 5px solid var(--dash-accent-blue);">
+                <div class="d-flex align-items-center mb-3">
+                    <div class="section-icon-bg me-3" style="background: rgba(var(--accent-blue-rgb, 59, 130, 246), 0.1); padding: 12px; border-radius: 12px;">
+                        <i class="bi bi-lightbulb-fill fs-3" style="color: var(--dash-accent-blue);"></i>
+                    </div>
+                    <div>
+                        <h2 class="dash-header-title mb-0" style="font-size: 1.5rem;">Quick Start: How to Use the Dashboard</h2>
+                        <p class="text-secondary small mb-0">Master the analytical platform in three simple steps.</p>
+                    </div>
+                </div>
+                <div class="row g-4 mt-1">
+                    <div class="col-md-4">
+                        <div class="d-flex gap-3">
+                            <span class="badge rounded-pill bg-primary fs-6 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">1</span>
+                            <div>
+                                <h6 class="text-primary-theme mb-1" style="color: var(--text-primary);">Filter Observations</h6>
+                                <p class="extra-small text-muted mb-0">Use the <strong>Year</strong>, <strong>Continent</strong>, and <strong>Country</strong> slicers to isolate specific data subsets.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="d-flex gap-3">
+                            <span class="badge rounded-pill bg-warning text-dark fs-6 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">2</span>
+                            <div>
+                                <h6 class="text-primary-theme mb-1" style="color: var(--text-primary);">Analyze Key Metrics</h6>
+                                <p class="extra-small text-muted mb-0">Observe the <strong>KPI Cards</strong> for immediate insights into Gini Index and GDP Per Capita changes.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="d-flex gap-3">
+                            <span class="badge rounded-pill bg-info text-dark fs-6 d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">3</span>
+                            <div>
+                                <h6 class="text-primary-theme mb-1" style="color: var(--text-primary);">Deep Dive Insights</h6>
+                                <p class="extra-small text-muted mb-0">Scroll to explore <strong>Choropleth Maps</strong> and <strong>Line Trends</strong> to understand wealth polarization over time.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Top Row: Power BI Dashboard Integration -->
+    <div class="row mb-5" data-aos="fade-up">
+        <div class="col-12">
+            <div class="dashboard-iframe-container shadow-lg">
+                <iframe title="Global Income Distribution Dashboard_Infosys" 
+                        src="https://app.powerbi.com/view?r=eyJrIjoiODExYTdmYjEtYTU0OS00MDJhLTk0Y2EtODA4OTEwY2RmYzFmIiwidCI6ImUxNGU3M2ViLTUyNTEtNDM4OC04ZDY3LThmOWYyZTJkNWE0NiIsImMiOjEwfQ%3D%3D&pageName=fc57fd5d4d7fe021e329" 
+                        frameborder="0" 
+                        allowFullScreen="true">
+                </iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. INTERACTIVE ACTION HUB (Buttons Row) -->
+    <div class="row g-4 mb-5" data-aos="fade-up">
+        <div class="col-md-4">
+            <button class="action-hub-btn active" onclick="toggleHubSection('comparisonSection', this)">
+                <div class="icon-wrap"><i class="bi bi-arrow-left-right"></i></div>
+                <div class="text-start">
+                    <span class="d-block fw-bold">Country Comparative Analysis</span>
+                    <span class="extra-small opacity-75">Side-by-side metric evaluation</span>
+                </div>
+                <i class="bi bi-chevron-right ms-auto"></i>
+            </button>
+        </div>
+        <div class="col-md-4">
+            <button class="action-hub-btn" onclick="toggleHubSection('guideSection', this)">
+                <div class="icon-wrap"><i class="bi bi-book-half"></i></div>
+                <div class="text-start">
+                    <span class="d-block fw-bold">Dashboard Analytics Guide</span>
+                    <span class="extra-small opacity-75">Metric definitions & methodology</span>
+                </div>
+                <i class="bi bi-chevron-right ms-auto"></i>
+            </button>
+        </div>
+        <div class="col-md-4">
+            <button class="action-hub-btn" onclick="toggleHubSection('faqSection', this)">
+                <div class="icon-wrap"><i class="bi bi-question-diamond-fill"></i></div>
+                <div class="text-start">
+                    <span class="d-block fw-bold">Frequently Asked Questions</span>
+                    <span class="extra-small opacity-75">Instant answers to key queries</span>
+                </div>
+                <i class="bi bi-chevron-right ms-auto"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Country Comparative Analysis Section (Toggled) -->
+    <div class="hub-content mb-5" id="comparisonSection">
+        <div class="comp-header">
+            <h3 class="dash-header-title" style="font-size: 1.6rem;">
+                <i class="bi bi-arrow-left-right me-2"></i>Country Comparative Analysis
+            </h3>
+            <p class="text-secondary small">Compare any two countries side-by-side across all economic and inequality metrics.</p>
+        </div>
+
+        <div class="comp-controls">
+            <!-- Country 1 Selectors -->
+            <div class="comp-select-group">
+                <label class="text-muted"><i class="bi bi-flag"></i> Select Country 1</label>
+                <select class="form-select comp-select" id="compCountry1">
+                    <option value="" selected disabled>Choose Country 1</option>
+                </select>
+                <select class="form-select comp-select mt-2" id="compYear1">
+                    <option value="" selected disabled>Select Year</option>
+                </select>
+            </div>
+
+            <div class="text-muted mx-3 d-none d-lg-block">
+                <i class="bi bi-repeat fs-4"></i>
+            </div>
+
+            <!-- Country 2 Selectors -->
+            <div class="comp-select-group">
+                <label class="text-muted"><i class="bi bi-flag-fill"></i> Select Country 2</label>
+                <select class="form-select comp-select" id="compCountry2">
+                    <option value="" selected disabled>Choose Country 2</option>
+                </select>
+                <select class="form-select comp-select mt-2" id="compYear2">
+                    <option value="" selected disabled>Select Year</option>
+                </select>
+            </div>
+            <button class="compare-btn" id="btnCompare">
+                <i class="bi bi-play-fill me-1"></i>Compare Data
+            </button>
+            <button class="btn btn-outline-secondary ms-2" id="btnSwap" title="Swap Countries">
+                <i class="bi bi-arrow-repeat"></i>
+            </button>
+            <button class="btn btn-outline-danger ms-2" id="btnClearComp" title="Clear Comparison">
+                <i class="bi bi-x-lg"></i> Clear
+            </button>
+        </div>
+
+        <div class="loader-container" id="compLoader">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="text-muted mt-2">Fetching comparative data...</p>
+        </div>
+
+        <div class="comparison-result" id="compResult">
+            <div class="comp-table shadow-lg" data-aos="zoom-in">
+                <!-- Table Header -->
+                <div class="comp-table-header">
+                    <div class="comp-cell" style="background: rgba(15, 23, 42, 0.8);">
+                        <span class="text-secondary fw-bold">METRIC / PARAMETER</span>
+                    </div>
+                    <!-- Country 1 Header -->
+                    <div class="comp-header-country">
+                        <div class="country-avatar" id="avatarC1">?</div>
+                        <div>
+                            <h4 id="nameC1">Country 1</h4>
+                            <span class="text-muted extra-small" id="codeC1">CODE</span>
+                        </div>
+                    </div>
+                    <!-- Country 2 Header -->
+                    <div class="comp-header-country">
+                        <div class="country-avatar" id="avatarC2">?</div>
+                        <div>
+                            <h4 id="nameC2">Country 2</h4>
+                            <span class="text-muted extra-small" id="codeC2">CODE</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Table Body -->
+                <div id="compTableRows">
+                    <!-- Rows will be injected here by JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+    <!-- Dashboard Information Section (Toggled) -->
+    <div class="hub-content d-none" id="guideSection">
+        <h3 class="dash-header-title mb-4"
+            style="font-size: 1.8rem; border-bottom: 2px solid var(--dash-accent-blue); padding-bottom: 12px; letter-spacing: 0.5px;">
+            <i class="bi bi-info-circle-fill me-2" style="color: var(--dash-accent-blue);"></i>Dashboard Analytics Guide
+        </h3>
+
+        <!-- Slicers & KPIs Section -->
+        <div class="row g-4 mb-4" data-aos="fade-up">
+            <div class="col-lg-12">
+                <div class="chart-card shadow-lg" style="border-left: 4px solid var(--dash-accent-blue);">
+                    <div class="row align-items-center">
+                        <div class="col-md-6 mb-3 mb-md-0 border-end border-secondary border-opacity-25">
+                            <h4 class="fw-bold mb-3 fs-5">
+                                <i class="bi bi-sliders me-2" style="color: var(--dash-accent-blue);"></i>
+                                Interactive Controls & Slicers
+                            </h4>
+                            <p class="text-secondary small mb-3">Refine the dataset using the following interactive
+                                filters:</p>
+                            <ul class="list-unstyled small text-light gap-2 d-grid">
+                                <li><span class="badge bg-secondary me-2">Year</span> Filter data by specific reporting
+                                    years or "All" for averages.</li>
+                                <li><span class="badge bg-secondary me-2">Continent</span> Drill down into specific
+                                    geographic regions.</li>
+                                <li><span class="badge bg-secondary me-2">Country</span> Search and select individual
+                                    nations for granular analysis.</li>
+                                <li><span class="badge bg-secondary me-2">Year Group</span> Compare historical data
+                                    (Before 2010) against modern trends (After 2010).</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6 ps-md-4">
+                            <h4 class="chart-title d-flex align-items-center mb-3">
+                                <i class="bi bi-lightning-charge-fill me-2" style="color: var(--dash-text-gold);"></i>
+                                Key Performance Indicators (KPIs)
+                            </h4>
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <div class="info-item p-2 bg-dark bg-opacity-10 rounded shadow-sm mb-2 border border-secondary border-opacity-10">
+                                        <strong class="text-white d-block small"><i class="bi bi-check2-circle me-1 text-primary"></i>Total Countries</strong>
+                                        <span class="text-muted extra-small">The total number of unique nations currently tracked and analyzed within the primary dataset.</span>
+                                    </div>
+                                    <div class="info-item p-2 bg-dark bg-opacity-10 rounded shadow-sm mb-2 border border-secondary border-opacity-10">
+                                        <strong class="text-white d-block small"><i class="bi bi-graph-up me-1 text-primary"></i>Total GDP Per Capita</strong>
+                                        <span class="text-muted extra-small">Aggregated average of the economic output per person, adjusted for purchasing power parity.</span>
+                                    </div>
+                                    <div class="info-item p-2 bg-dark bg-opacity-10 rounded shadow-sm mb-2 border border-secondary border-opacity-10">
+                                        <strong class="text-white d-block small"><i class="bi bi-pie-chart me-1 text-primary"></i>Total Gini Index</strong>
+                                        <span class="text-muted extra-small">A statistical measure representing the income distribution of a nation's residents; used to gauge inequality.</span>
+                                    </div>
+                                    <div class="info-item p-2 bg-dark bg-opacity-10 rounded shadow-sm mb-2 border border-secondary border-opacity-10">
+                                        <strong class="text-white d-block small"><i class="bi bi-person-slash me-1 text-primary"></i>Unemployment Rate</strong>
+                                        <span class="text-muted extra-small">Percentage of the total labor force that is without work but actively seeking employment.</span>
+                                    </div>
+                                    <div class="info-item p-2 bg-dark bg-opacity-10 rounded shadow-sm mb-2 border border-secondary border-opacity-10">
+                                        <strong class="text-white d-block small"><i class="bi bi-shield-check me-1 text-primary"></i>Country Strength Score</strong>
+                                        <span class="text-muted extra-small">A proprietary weighted index that balances GDP growth against social stability and labor healthy.</span>
+                                    </div>
+                                    <div class="info-item p-2 bg-dark bg-opacity-10 rounded shadow-sm border border-secondary border-opacity-10">
+                                        <strong class="text-white d-block small"><i class="bi bi-exclamation-triangle me-1 text-primary"></i>Inequality Severity</strong>
+                                        <span class="text-muted extra-small">Qualitative assessment of the risk posed by wealth dispersion to long-term economic sustainability.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <!-- Global Overview Section -->
+            <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="chart-card h-100 border-top-0" style="border-bottom: 3px solid var(--dash-accent-blue);">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="section-icon-bg me-3"
+                            style="background: rgba(59, 130, 246, 0.1); padding: 10px; border-radius: 12px;">
+                            <i class="bi bi-globe-americas"
+                                style="font-size: 1.5rem; color: var(--dash-accent-blue);"></i>
+                        </div>
+                        <h4 class="chart-title mb-0">Global Overview Section</h4>
+                    </div>
+                    <p class="mb-3 text-secondary" style="font-size: 0.95rem; line-height: 1.6;">
+                        High-level synthesis of global economic distribution and structural inequality.
+                    </p>
+                    <div class="info-item mb-2 p-2 bg-dark bg-opacity-25 rounded shadow-sm">
+                        <strong class="text-light d-block small">Top 10 Countries by Income Inequality (Gini
+                            Index)</strong>
+                        <span class="text-muted extra-small">Vertical bar chart identifying the most disparate
+                            economies.</span>
+                    </div>
+                    <div class="info-item mb-2 p-2 bg-dark bg-opacity-25 rounded shadow-sm">
+                        <strong class="text-light d-block small">Income Inequality Distribution Across
+                            Countries</strong>
+                        <span class="text-muted extra-small">Choropleth map visualizing geographic concentration of
+                            wealth disparity.</span>
+                    </div>
+                    <div class="info-item p-2 bg-dark bg-opacity-25 rounded shadow-sm">
+                        <strong class="text-light d-block small">Global Income Distribution Structure</strong>
+                        <span class="text-muted extra-small">Donut chart categorizing global population by income
+                            brackets.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Regional Section -->
+            <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="chart-card h-100 border-top-0" style="border-bottom: 3px solid var(--dash-accent-green);">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="section-icon-bg me-3"
+                            style="background: rgba(16, 185, 129, 0.1); padding: 10px; border-radius: 12px;">
+                            <i class="bi bi-geo-alt-fill"
+                                style="font-size: 1.5rem; color: var(--dash-accent-green);"></i>
+                        </div>
+                        <h4 class="chart-title mb-0">Regional Section</h4>
+                    </div>
+                    <p class="mb-3 text-white opacity-75" style="font-size: 0.95rem; line-height: 1.6;">
+                        Comparative analysis of economic health and labor metrics across continental boundaries.
+                    </p>
+                    <div class="info-item mb-2 p-2 bg-dark bg-opacity-25 rounded shadow-sm">
+                        <strong class="text-light d-block small">Regional GDP Per Capita Comparison</strong>
+                        <span class="text-white extra-small opacity-75">Comparative bar chart showing economic output divergence by
+                            region.</span>
+                    </div>
+                    <div class="info-item mb-2 p-2 bg-dark bg-opacity-25 rounded shadow-sm">
+                        <strong class="text-light d-block small">Regional Income Inequality Levels (Gini Index)</strong>
+                        <span class="text-white extra-small opacity-75">Highlights which continents suffer from structural wealth
+                            imbalances.</span>
+                    </div>
+                    <div class="info-item p-2 bg-dark bg-opacity-25 rounded shadow-sm">
+                        <strong class="text-light d-block small">Regional Unemployment Rate Comparison</strong>
+                        <span class="text-white extra-small opacity-75">Tracks workforce distress and labor opportunity across
+                            regions.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trend Analysis Section -->
+            <div class="col-md-6" data-aos="fade-up" data-aos-delay="300">
+                <div class="chart-card h-100 border-top-0" style="border-bottom: 3px solid var(--dash-text-gold);">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="section-icon-bg me-3"
+                            style="background: rgba(245, 158, 11, 0.1); padding: 10px; border-radius: 12px;">
+                            <i class="bi bi-graph-up-arrow"
+                                style="font-size: 1.5rem; color: var(--dash-text-gold);"></i>
+                        </div>
+                        <h4 class="chart-title mb-0">Trend Analysis Section</h4>
+                    </div>
+                    <p class="mb-3 text-white opacity-75" style="font-size: 0.95rem; line-height: 1.6;">
+                        Longitudinal data tracking revealing the trajectory of global development over time.
+                    </p>
+                    <div class="info-item mb-2 p-2 bg-dark bg-opacity-25 rounded shadow-sm">
+                        <strong class="text-light d-block small">GDP Per Capita Growth Trend Over Time</strong>
+                        <span class="text-light opacity-75 extra-small">Line chart tracing the rise and fall of average citizen
+                            wealth.</span>
+                    </div>
+                    <div class="info-item mb-2 p-2 bg-dark bg-opacity-25 rounded shadow-sm">
+                        <strong class="text-light d-block small">Income Inequality Change Trend
+                            (Year-over-Year)</strong>
+                        <span class="text-light opacity-75 extra-small">Monitors whether the global wealth gap is expanding or
+                            contracting.</span>
+                    </div>
+                    <div class="info-item p-2 bg-dark bg-opacity-25 rounded shadow-sm">
+                        <strong class="text-light d-block small">Regional Unemployment Rate Comparison</strong>
+                        <span class="text-light opacity-75 extra-small">Tracks historical labor market stability and economic
+                            crisis impacts.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comparison Section -->
+            <div class="col-md-6" data-aos="fade-up" data-aos-delay="400">
+                <div class="chart-card h-100 border-top-0" style="border-bottom: 3px solid var(--dash-accent-red);">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="section-icon-bg me-3"
+                            style="background: rgba(244, 63, 94, 0.1); padding: 10px; border-radius: 12px;">
+                            <i class="bi bi-diagram-3-fill"
+                                style="font-size: 1.5rem; color: var(--dash-accent-red);"></i>
+                        </div>
+                        <h4 class="chart-title mb-0">Comparison Section</h4>
+                    </div>
+                    <p class="mb-3 text-white opacity-75" style="font-size: 0.95rem; line-height: 1.6;">
+                        Correlation studies between absolute wealth and the fairness of its distribution.
+                    </p>
+                    <div
+                        class="info-item p-3 bg-dark bg-opacity-25 rounded shadow-sm border border-secondary border-opacity-10">
+                        <h6 class="text-light fw-bold mb-2">Economic Growth vs Income Inequality Across Countries</h6>
+                        <p class="small text-light opacity-75 mb-0">
+                            A scatter plot analysis cross-referencing GDP outcomes with Gini severity. It answers the
+                            critical question:
+                            <em class="text-info">"Are richer nations necessarily more equitable?"</em>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+    <!-- 4. FAQ SECTION (Toggled) -->
+    <div class="hub-content d-none" id="faqSection">
+        <h3 class="dash-header-title mb-4" style="font-size: 1.8rem;">
+            <i class="bi bi-patch-question-fill me-2" style="color: var(--dash-text-gold);"></i>Frequently Asked Questions
+        </h3>
+        
+        <div class="row g-4">
+            <div class="col-lg-12">
+                <div class="faq-container gap-3 d-flex flex-column">
+                    <div class="faq-item glass-card p-0 overflow-hidden" onclick="toggleFaq(this)">
+                        <div class="faq-question p-4 d-flex justify-content-between align-items-center cursor-pointer">
+                            <h5 class="mb-0 fw-bold fs-6">1. What does the "Country Strength Score" represent?</h5>
+                            <i class="bi bi-plus-lg text-gold"></i>
+                        </div>
+                        <div class="faq-answer p-4 text-secondary pt-0 border-top border-secondary border-opacity-10 d-none">
+                            The Country Strength Score is a composite index calculated by weighing absolute wealth (GDP Per Capita) against structural stability indicators like the Gini Index and Unemployment rate. A higher score indicates a resilient economy with relatively balanced wealth distribution.
+                        </div>
+                    </div>
+
+                    <div class="faq-item glass-card p-0 overflow-hidden" onclick="toggleFaq(this)">
+                        <div class="faq-question p-4 d-flex justify-content-between align-items-center cursor-pointer">
+                            <h5 class="mb-0 fw-bold fs-6">2. How is "Income Inequality Severity" determined?</h5>
+                            <i class="bi bi-plus-lg text-gold"></i>
+                        </div>
+                        <div class="faq-answer p-4 text-secondary pt-0 border-top border-secondary border-opacity-10 d-none">
+                            Inequality Severity uses the Gini Index (0-100 scale) as a base. We categorize scores above 50 as 'Extreme Disparity', 40-50 as 'Moderate Dispersion', and below 35 as 'Relatively Balanced'. The dashboard aggregates this score to highlight regions requiring structural intervention.
+                        </div>
+                    </div>
+
+                    <div class="faq-item glass-card p-0 overflow-hidden" onclick="toggleFaq(this)">
+                        <div class="faq-question p-4 d-flex justify-content-between align-items-center cursor-pointer">
+                            <h5 class="mb-0 fw-bold fs-6">3. What is the source of this economic data?</h5>
+                            <i class="bi bi-plus-lg text-gold"></i>
+                        </div>
+                        <div class="faq-answer p-4 text-secondary pt-0 border-top border-secondary border-opacity-10 d-none">
+                            The current dataset is derived from the <code>Global Income Distribution Dataset.xlsx</code>, which mirrors World Bank and IMF economic indicators spanning 2001-2024. It covers 20 major nations analyzed for wealth and labor trends.
+                        </div>
+                    </div>
+
+                    <div class="faq-item glass-card p-0 overflow-hidden" onclick="toggleFaq(this)">
+                        <div class="faq-question p-4 d-flex justify-content-between align-items-center cursor-pointer">
+                            <h5 class="mb-0 fw-bold fs-6">4. Why do some countries show 0% income share for the lowest 20%?</h5>
+                            <i class="bi bi-plus-lg text-gold"></i>
+                        </div>
+                        <div class="faq-answer p-4 text-secondary pt-0 border-top border-secondary border-opacity-10 d-none">
+                            A 0% income share usually denotes a data reporting gap or a lack of granular survey data for that specific reporting year in the primary dataset. Our analysis treats these as null identifiers during aggregation to maintain accuracy.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Note: Feedback section moved to dedicated Feedback page -->
+
+</div>
+
+    <!-- Implementation Script Placeholder -->
+    <script src="{{ url_for('static', filename='js/dashboard_logic.js') }}"></script>
+{% endblock %}

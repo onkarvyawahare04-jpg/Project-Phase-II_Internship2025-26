@@ -1,0 +1,66 @@
+* Country_Name 
+
+1.Calculated Columns 
+ 
+  Continent  ..
+
+2.Calculated Measures
+
+  Total Countries .. , Country Economic Strength Score ..
+
+* Year
+
+1.Calculated Columns 
+
+  Year Group ..
+ 
+2.Calculated Measures
+
+   GDP YoY Growth % ..  , Gini Change YoY ..  , Unemployment YoY Change ..
+
+* GDP_Per_Capita ($)
+
+1.Calculated Columns 
+
+  GDP Category ..
+
+2.Calculated Measures
+  
+   Region GDP % Contribution ..  ,  Region Total GDP ..
+
+* Gini_Index (0-100)
+
+1.Calculated Columns
+
+  Inequality Level ..
+
+2.Calculated Measures
+
+  Inequality Severity Score  ..
+
+* Income Share
+
+1.Calculated Columns 
+
+  Income Gap (Top – Bottom) ..
+  Middle Class Share ..
+
+2.Calculated Measures
+
+  Polarization Index ..
+
+* Unemployement_Rate (%)
+
+1.Calculated Columns 
+
+  Unemployment Level  ..
+
+2.Calculated Measures
+
+  Unemployment Rank  .. , Region Average Unemployment ..
+
+
+
+
+
+Global Economic Health Index

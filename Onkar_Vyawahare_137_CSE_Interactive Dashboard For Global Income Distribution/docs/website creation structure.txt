@@ -1,0 +1,427 @@
+Since your project “Interactive Analytics Dashboard for Global Income Distribution” already has a strong Power BI dashboard, the website should present it professionally like a data analytics product. Below is a clear structure and step-by-step plan for building the best website for your project.
+
+1. Overall Website Structure (Main Pages)
+
+Your website should contain these main sections/pages:
+
+Home Page
+
+About Project
+
+Dashboard / Analytics
+
+Data & Download Center
+
+Insights / Reports
+
+User Authentication
+
+Login
+
+Sign Up
+
+User Profile
+
+Admin Panel
+
+Feedback / Contact
+
+Documentation
+
+About Developer / Team
+
+2. Home Page (Landing Page)
+
+This page should attract users and explain the purpose.
+
+Sections to include
+
+Hero Section
+
+Project title
+
+Short description
+
+“Explore Dashboard” button
+
+Project Overview
+
+Explain income inequality analysis
+
+Importance of economic insights
+
+Dashboard Preview
+
+Screenshot of your Power BI dashboard
+
+Key Features
+
+Global inequality visualization
+
+Country comparisons
+
+Trend analysis
+
+Interactive filters
+
+Key Statistics
+Show example metrics like:
+
+Countries analyzed
+
+Average global Gini index
+
+GDP comparisons
+
+Call to Action
+
+“Explore Dashboard”
+
+“Download Dataset”
+
+3. About Project Page
+
+Explain the project clearly.
+
+Sections
+
+Project Objective
+Explain goal of income inequality analysis.
+
+Problem Statement
+Global inequality differences.
+
+Methodology
+
+Data collection
+
+Data preprocessing
+
+Data transformation
+
+Dashboard creation
+
+Tools Used
+
+Microsoft Power BI
+
+Streamlit
+
+Python / Pandas
+
+Dataset Sources
+
+World Bank
+
+IMF
+
+OECD
+
+(Your document also describes this workflow) 
+
+Interactive Analytics Dashboard…
+
+4. Dashboard / Analytics Page
+
+This is the most important page.
+
+Sections
+
+Embedded Dashboard
+Embed Power BI using iframe.
+
+Example layout:
+
+---------------------------------
+Filters | Power BI Dashboard
+---------------------------------
+Features
+
+Interactive slicers
+
+Country selection
+
+Year filtering
+
+Region analysis
+
+5. Data & Download Center
+
+Allow users to download datasets.
+
+Sections
+
+Available Datasets
+
+Income distribution data
+
+GDP per capita data
+
+Unemployment data
+
+Download Options
+
+CSV
+
+Excel
+
+Power BI dataset
+
+Chart Data Download
+Allow users to export:
+
+country statistics
+
+inequality metrics
+
+6. Insights / Reports Page
+
+This page explains findings from your dashboard.
+
+Example insights
+
+Global Inequality Patterns
+
+Regional Comparison
+
+Economic Growth vs Inequality
+
+Country Case Studies
+
+Example:
+
+Brazil inequality
+
+South Africa inequality
+
+United States economic growth
+
+7. User Authentication Pages
+Login Page
+
+Fields:
+
+Email
+
+Password
+
+Sign Up Page
+
+Fields:
+
+Name
+
+Email
+
+Password
+
+Role (user/researcher)
+
+Benefits
+
+Logged users can:
+
+save reports
+
+download data
+
+submit feedback
+
+8. User Profile Page
+
+Users can:
+
+Save dashboards
+
+Download datasets
+
+View previous analytics
+
+Manage account
+
+9. Admin Panel
+
+Admin controls the system.
+
+Admin Features
+
+User Management
+
+view users
+
+delete users
+
+approve accounts
+
+Dataset Management
+
+upload new data
+
+update datasets
+
+Dashboard Updates
+
+update charts
+
+update reports
+
+Feedback Monitoring
+
+view user suggestions
+
+10. Feedback / Contact Page
+
+Collect user opinions.
+
+Form fields
+
+Name
+
+Email
+
+Feedback message
+
+Rating
+
+Also add:
+
+FAQ section.
+
+11. Documentation Page
+
+Explain project technical details.
+
+Sections:
+
+System architecture
+
+Data pipeline
+
+Dashboard explanation
+
+Data transformations
+
+Calculated columns
+
+Measures
+
+12. Website Layout Architecture
+
+Recommended structure:
+
+Navbar
+   Home
+   Dashboard
+   Data
+   Insights
+   Documentation
+   About
+   Login
+
+Main Content
+
+Footer
+   Contact
+   Github
+   Feedback
+13. Visual Design Decisions
+
+For a professional analytics website:
+
+Color theme
+
+Use dark analytics theme
+
+Example:
+
+Dark blue background
+
+Yellow highlights
+
+White text
+
+UI Style
+
+Glassmorphism cards
+
+Rounded panels
+
+Shadow effects
+
+Typography
+
+Bold titles
+
+Clean fonts
+
+14. Interactive Features
+
+Your website should support:
+
+Dashboard filters
+
+Download buttons
+
+Data search
+
+Interactive charts
+
+Hover tooltips
+
+Dynamic updates
+
+15. Analytical Capabilities
+
+Users should be able to:
+
+compare countries
+
+analyze regional inequality
+
+study GDP trends
+
+observe unemployment patterns
+
+track Gini index changes
+
+16. User Experience (UX)
+
+Good UX includes:
+
+Simple navigation
+
+Fast dashboard loading
+
+Responsive design
+
+Mobile compatibility
+
+Clear data visualization
+
+17. Recommended Tech Stack
+
+Backend
+
+Python
+
+Streamlit
+
+Flask / FastAPI
+
+Frontend
+
+HTML
+
+CSS
+
+JavaScript
+
+Database
+
+PostgreSQL
+
+MongoDB
+
+Dashboard
+
+Microsoft Power BI

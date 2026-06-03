@@ -1,0 +1,1 @@
+Country_Name|Country_Code|year|GDP_Per_Capita ($)|Gini_Index (0-100)|Income Share_Lowest 20%|Income Share_Second 20%|Income Share_Third 20%|Income Share_Fourth 20%|Income Share_Highest 20%|Unemployement_Rate (%)|Country_Continent|Year_Group|GDP_Per_Capita_Category|Gini_Inequality_Level|Income_Share_Gap|Middle_Class_Income_Share|Unemployment_Level
